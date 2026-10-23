@@ -1,0 +1,9 @@
+                 precision    recall  f1-score   support
+
+    Iris-setosa     1.0000    1.0000    1.0000        10
+Iris-versicolor     1.0000    0.9000    0.9474        10
+ Iris-virginica     0.9091    1.0000    0.9524        10
+
+       accuracy                         0.9667        30
+      macro avg     0.9697    0.9667    0.9666        30
+   weighted avg     0.9697    0.9667    0.9666        30

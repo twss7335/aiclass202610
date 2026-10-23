@@ -1,0 +1,41 @@
+{
+  "accuracy": 0.9666666666666667,
+  "macro_precision": 0.9696969696969697,
+  "macro_recall": 0.9666666666666667,
+  "macro_f1": 0.9665831244778612,
+  "confusion_matrix": [
+    [
+      10,
+      0,
+      0
+    ],
+    [
+      0,
+      9,
+      1
+    ],
+    [
+      0,
+      0,
+      10
+    ]
+  ],
+  "class_order": [
+    "Iris-setosa",
+    "Iris-versicolor",
+    "Iris-virginica"
+  ],
+  "train_samples": 120,
+  "test_samples": 30,
+  "test_size": 0.2,
+  "random_state": 42,
+  "stratified": true,
+  "epochs_run": 61,
+  "best_validation_accuracy": 0.9583333333333334,
+  "pca_explained_variance_ratio": [
+    0.7296244541329988,
+    0.22850761786701765,
+    0.03668921889282879
+  ],
+  "pca_explained_variance_total": 0.9948212908928453
+}
