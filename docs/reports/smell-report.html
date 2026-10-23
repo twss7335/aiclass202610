@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>靜態檢查分析結果</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, "Noto Sans TC", sans-serif; color: #17233b; background: #f3f6fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 960px; margin: 32px auto; padding: 32px; background: white; border: 1px solid #dbe3ef; border-radius: 16px; line-height: 1.72; box-shadow: 0 8px 28px #1739630d; }
+    h1, h2 { line-height: 1.3; }
+    h2 { margin-top: 2em; padding-bottom: .3em; border-bottom: 1px solid #dce4ef; }
+    a { color: #1765ba; }
+    code { padding: 1px 5px; border-radius: 4px; background: #edf2f8; }
+    .meta, .note { color: #59687e; }
+    .status { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; padding: 0; list-style: none; }
+    .status li { padding: 16px; border: 1px solid #dbe3ef; border-radius: 12px; background: #f8fafd; }
+    .status strong { display: block; font-size: 1.35rem; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 9px 10px; border-bottom: 1px solid #dce4ef; text-align: left; }
+    th { background: #f8fafd; }
+    .locations { overflow-wrap: anywhere; }
+    @media (max-width: 600px) { main { margin: 0; padding: 20px; border-radius: 0; } }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="../index.html">← 返回首頁</a></nav>
+    <h1>docs/ 與 scripts/ 靜態檢查分析</h1>
+    <p class="meta">執行日期：2026-10-23 · 指令：<code>pnpm run check</code></p>
+    <ul class="status">
+      <li><strong>23</strong>ESLint errors</li>
+      <li><strong>0.00%</strong>JavaScript 重複率</li>
+      <li><strong>0</strong>Knip 未使用項目</li>
+      <li><strong>93 行／16 函式</strong>前端推論全檔</li>
+    </ul>
+
+    <h2>依規則分組</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>規則</th><th>數量</th><th>門檻</th></tr></thead>
+      <tbody>
+        <tr><td><code>no-loss-of-precision</code></td><td>23</td><td>ESLint recommended</td></tr>
+        <tr><td><code>complexity</code></td><td>0</td><td>10</td></tr>
+        <tr><td><code>max-depth</code></td><td>0</td><td>3</td></tr>
+        <tr><td><code>max-lines-per-function</code></td><td>0</td><td>50</td></tr>
+        <tr><td><code>sonarjs/cognitive-complexity</code></td><td>0</td><td>15</td></tr>
+      </tbody>
+    </table></div>
+    <p>23 個錯誤都在 <code>docs/app.js</code> 第 2 行的內嵌模型數值。完整位置：</p>
+    <p class="locations"><code>2:10030</code>、<code>2:57623</code>、<code>2:86391</code>、<code>2:94008</code>、<code>2:99682</code>、<code>2:106676</code>、<code>2:127891</code>、<code>2:143737</code>、<code>2:173826</code>、<code>2:219887</code>、<code>2:290285</code>、<code>2:340139</code>、<code>2:403466</code>、<code>2:412542</code>、<code>2:480945</code>、<code>2:575350</code>、<code>2:588816</code>、<code>2:629346</code>、<code>2:636051</code>、<code>2:669575</code>、<code>2:733901</code>、<code>2:748346</code>、<code>2:791651</code>。</p>
+    <p><a href="https://github.com/twss7335/aiclass202610/issues/10">查看追蹤 Issue #10</a></p>
+
+    <h2>重複率與位置</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>檔案</th><th>行數</th><th>Tokens</th><th>片段</th><th>重複率</th></tr></thead>
+      <tbody><tr><td>2</td><td>148</td><td>350,262</td><td>0</td><td>0.00%</td></tr></tbody>
+    </table></div>
+    <p>沒有偵測到重複片段，因此沒有重複位置可列。</p>
+
+    <h2>未使用項目</h2>
+    <p>Knip 回傳 0 個未使用檔案、函式／匯出及相依套件。</p>
+    <p class="note">覆蓋限制：<code>scripts/</code> 目前只有 Python；既有 ESLint、Knip 與 JavaScript-only jscpd pattern 不會分析 Python，因此零項結果只代表目前 JavaScript 範圍。</p>
+
+    <h2>前端推論規模</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>範圍</th><th>行數</th><th>函式數</th><th>組成</th></tr></thead>
+      <tbody>
+        <tr><td><code>docs/app.js</code> 全檔</td><td>93</td><td>16</td><td>5 個具名、11 個箭頭函式</td></tr>
+        <tr><td>核心推論第 4–58 行</td><td>55</td><td>11</td><td>3 個具名、8 個箭頭函式</td></tr>
+      </tbody>
+    </table></div>
+    <p>核心具名函式為 <code>numeric</code>、<code>predictIris</code>、<code>predictAI4I</code>。第 2 行內嵌模型資料長 926,188 個字元。</p>
+
+    <h2>結論</h2>
+    <p>目前唯一可量化的 code smell 是 23 個浮點精度警告；沒有 JavaScript 重複片段、未使用項目或指定複雜度門檻違規。本頁是 <code>reports/smell-report.md</code> 的靜態網頁摘要。</p>
+  </main>
+</body>
+</html>
