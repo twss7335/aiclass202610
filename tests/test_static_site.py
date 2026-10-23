@@ -55,6 +55,18 @@ class StaticSiteTests(unittest.TestCase):
             if not target.startswith(("https://", "http://", "#")):
                 self.assertTrue((DOCS / target).is_file(), target)
 
+    def test_generated_model_data_is_separate_from_handwritten_inference(self):
+        html = (DOCS / "index.html").read_text(encoding="utf-8")
+        app = (DOCS / "app.js").read_text(encoding="utf-8")
+        model_asset = DOCS / "model-data.js"
+        exporter = (ROOT / "scripts" / "export_frontend_models.py").read_text(encoding="utf-8")
+        self.assertTrue(model_asset.is_file(), "Generated model asset must exist")
+        self.assertLess(html.index('src="model-data.js"'), html.index('src="app.js"'))
+        self.assertLess(len(app), 20_000, "Handwritten app.js must not contain embedded models")
+        self.assertNotIn("MODEL_DATA_START", app)
+        self.assertNotIn("re.subn", exporter)
+        self.assertIn('"model-data.js"', exporter)
+
     def test_result_cards_have_local_decorative_images_with_blur(self):
         html = (DOCS / "index.html").read_text(encoding="utf-8")
         for name in ("iris", "ai4i"):

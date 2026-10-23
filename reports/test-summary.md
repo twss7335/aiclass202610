@@ -2,7 +2,7 @@
 
 執行日期：2026-10-23
 
-## Python 測試（26 tests，全數通過）
+## Python 測試（27 tests，全數通過）
 
 | 檔案 | 對應範圍 | 測試數 | 狀態 |
 | --- | --- | ---: | --- |
@@ -10,9 +10,9 @@
 | `tests/test_experiment_conclusions.py` | 上午實驗的四項結論契約 | 4 | 4 passed |
 | `tests/test_frontend_inference.py` | Python 與前端 Iris／AI4I 推論一致性 | 3 | 3 passed |
 | `tests/test_iris_workflow.py` | Iris 資料、切分、模型與產出契約 | 5 | 5 passed |
-| `tests/test_static_site.py` | 靜態網站、報告、圖檔與結果來源 | 5 | 5 passed |
+| `tests/test_static_site.py` | 靜態網站、報告、圖檔、結果來源與生成模型資產邊界 | 6 | 6 passed |
 
-執行結果：`Ran 26 tests in 10.294s — OK`。
+執行結果：`Ran 27 tests in 12.928s — OK`。
 
 ## JavaScript 前端測試（7 tests，全數通過）
 
@@ -27,9 +27,9 @@
 
 | 類別 | 數量 | 狀態 |
 | --- | ---: | --- |
-| Python unittest | 26 | 26 passed |
+| Python unittest | 27 | 27 passed |
 | JavaScript Node test | 7 | 7 passed |
-| 總計 | 33 | 33 passed |
+| 總計 | 34 | 34 passed |
 
 ## 實驗結論的故障注入證明
 
@@ -52,7 +52,7 @@
 | Knip | 0 unused issues |
 | 全專案 ESLint | 23 個既知 `no-loss-of-precision` errors，集中於 `docs/app.js` 的生成模型資料；追蹤於 Issue #10 |
 
-因此「33 項測試全數通過」與「全專案靜態檢查仍有 23 個既知錯誤」是兩個不同狀態，不應合併宣稱所有品質檢查全綠。
+Issue #11 的模型資產重構後，全專案 ESLint 已由 23 個錯誤降為 0；generated asset 由 exporter 與推論一致性測試驗證，不與手寫程式混合計算 lint。
 
 ## 重現指令
 

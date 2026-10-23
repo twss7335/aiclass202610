@@ -19,6 +19,7 @@ export default [
     ignores: [
       "node_modules/**",
       "reports/static-analysis/**",
+      "docs/model-data.js",
       "docs/figures/**",
       "docs/assets/**",
       "docs/artifacts/**"
