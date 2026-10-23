@@ -1,0 +1,45 @@
+{
+  "seed": 42,
+  "scikit_learn": "1.7.2",
+  "models": [
+    "dummy",
+    "logistic",
+    "forest",
+    "mlp"
+  ],
+  "feature_variants": [
+    "raw",
+    "engineered"
+  ],
+  "cv_folds": 3,
+  "selected_model": "forest",
+  "selected_features": "engineered",
+  "mlp": {
+    "hidden_layers": [
+      24,
+      12
+    ],
+    "activation": "relu",
+    "solver": "adam",
+    "alpha": 0.01,
+    "batch_size": 128,
+    "learning_rate_init": 0.003,
+    "max_iter": 180
+  },
+  "class_imbalance": "class weights only; no resampling",
+  "pca": {
+    "input_features": [
+      "Air temperature [K]",
+      "Process temperature [K]",
+      "Rotational speed [rpm]",
+      "Torque [Nm]",
+      "Tool wear [min]"
+    ],
+    "explained_variance_ratio": [
+      0.3821480997088077,
+      0.3681704817280889
+    ],
+    "cumulative_variance_ratio": 0.7503185814368967,
+    "purpose": "descriptive only"
+  }
+}

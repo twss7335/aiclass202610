@@ -1,0 +1,83 @@
+{
+  "iris": {
+    "source": "results/metrics.json",
+    "metrics": {
+      "accuracy": 0.9666666666666667,
+      "macro_precision": 0.9696969696969697,
+      "macro_recall": 0.9666666666666667,
+      "macro_f1": 0.9665831244778612,
+      "confusion_matrix": [
+        [
+          10,
+          0,
+          0
+        ],
+        [
+          0,
+          9,
+          1
+        ],
+        [
+          0,
+          0,
+          10
+        ]
+      ],
+      "class_order": [
+        "Iris-setosa",
+        "Iris-versicolor",
+        "Iris-virginica"
+      ],
+      "train_samples": 120,
+      "test_samples": 30,
+      "test_size": 0.2,
+      "random_state": 42,
+      "stratified": true,
+      "epochs_run": 61,
+      "best_validation_accuracy": 0.9583333333333334,
+      "pca_explained_variance_ratio": [
+        0.7296244541329988,
+        0.22850761786701765,
+        0.03668921889282879
+      ],
+      "pca_explained_variance_total": 0.9948212908928453
+    }
+  },
+  "ai4i": {
+    "source": "results/ai4i/metrics.json",
+    "metrics": {
+      "pr_auc": 0.8736686754966534,
+      "roc_auc": 0.9778688649372793,
+      "precision": 0.43795620437956206,
+      "recall": 0.8823529411764706,
+      "f1": 0.5853658536585366,
+      "threshold": 0.11311298759413635,
+      "confusion_matrix": [
+        [
+          1855,
+          77
+        ],
+        [
+          8,
+          60
+        ]
+      ],
+      "true_negatives": 1855,
+      "false_positives": 77,
+      "false_negatives": 8,
+      "true_positives": 60,
+      "predicted_inspections": 137,
+      "positive_samples": 68,
+      "negative_samples": 1932,
+      "selected_model": "forest",
+      "selected_features": "engineered",
+      "selection_cv_pr_auc_mean": 0.8879418294431672,
+      "selection_cv_pr_auc_std": 0.00727989055271264,
+      "validation_target_recall": 0.9,
+      "threshold_selection": "maximize precision among OOF thresholds with recall >= 0.90",
+      "train_samples": 8000,
+      "test_samples": 2000,
+      "weighting": "fold-local class_weight"
+    }
+  }
+}

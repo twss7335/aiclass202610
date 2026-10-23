@@ -86,7 +86,16 @@ MPLCONFIGDIR=.matplotlib python -m unittest discover -s tests -v
 
 ## 純前端互動推論
 
-開啟 [`docs/index.html`](docs/index.html) 即可在瀏覽器試用 Iris 與 AI4I 表單。兩者共用一個結果區，推論只執行 [`docs/app.js`](docs/app.js)，不會向後端傳送輸入。Iris 使用原本的 4→16→8→3 MLP；AI4I 使用選出的 120 棵樹隨機森林及相同的工程特徵。AI4I 顯示的風險門檻為驗證資料選出的 `0.11311298759413635`，不是設備安全標準。
+[`docs/index.html`](docs/index.html) 提供 Iris 與 AI4I 既有實驗結果、小論文連結及互動推論表單。兩個表單共用一個結果區，推論只執行 [`docs/app.js`](docs/app.js)，不會向後端傳送輸入。Iris 使用原本的 4→16→8→3 MLP；AI4I 使用選出的 120 棵樹隨機森林及相同的工程特徵。AI4I 顯示的風險門檻為驗證資料選出的 `0.11311298759413635`，不是設備安全標準。
+
+靜態網站的來源對照：專案沒有 `reports/` 目錄；報告原稿在 `paper/`，指標和圖片原稿在 `results/`。執行下列搬運腳本時不訓練模型、不重畫圖片，只讀取既有檔案：
+
+```bash
+python scripts/build_static_site.py
+python -m http.server 8765 --directory docs
+```
+
+然後開啟 `http://127.0.0.1:8765/`。首頁的 JavaScript 會讀取 [`docs/results.json`](docs/results.json)；其 `iris.metrics` 完整取自 [`results/metrics.json`](results/metrics.json)，`ai4i.metrics` 完整取自 [`results/ai4i/metrics.json`](results/ai4i/metrics.json)，各自附 `source` 欄。圖表由 `results/**/*.png` 原樣複製至 `docs/figures/`；小論文由 `paper/*.md` 轉為 `docs/reports/*.html`。報告連到的三個 AI4I JSON／CSV 輔助檔亦複製到 `docs/artifacts/`。由於首頁使用 `fetch`，請用 HTTP 伺服器開啟，而非直接使用 `file://`。
 
 前端參數由訓練集重新擬合後匯出。安裝 Python 相依套件後，可重建並驗證：
 
