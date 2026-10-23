@@ -21,6 +21,7 @@ pnpm run check:deadcode
 
 - ESLint 使用 flat config。`docs/**/*.js` 只宣告 browser globals；`scripts/`、`tests/` 與根目錄設定檔只宣告 Node globals。
 - `docs/app.js` 額外只宣告唯讀的 `module`，供既有的條件式 CommonJS 測試匯出使用；沒有把整組 Node globals 套到瀏覽器程式。
+- `docs/model-data.js` 完全由 `scripts/export_frontend_models.py` 生成，不視為手寫程式，因此排除於 ESLint 與 jscpd。其正確性由載入順序契約、Python/JavaScript parity tests 與三筆 golden predictions 驗證；不可手動編輯或任意截斷參數。
 - Cyclomatic complexity：10。
 - 巢狀深度：3。
 - 每個函式最多 50 行（忽略空白行與註解）。

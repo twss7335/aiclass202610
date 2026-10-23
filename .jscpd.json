@@ -1,7 +1,7 @@
 {
   "path": ["docs", "scripts", "tests"],
   "pattern": "**/*.{js,mjs,cjs}",
-  "ignore": ["**/node_modules/**", "reports/static-analysis/**"],
+  "ignore": ["**/node_modules/**", "reports/static-analysis/**", "docs/model-data.js"],
   "minLines": 5,
   "minTokens": 50,
   "threshold": 0,

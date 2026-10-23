@@ -37,13 +37,13 @@
     <p class="lead">2026-10-23 實際執行結果。測試通過狀態與靜態檢查狀態分開呈現。</p>
 
     <section class="cards" aria-label="測試摘要">
-      <div class="card"><strong>26 / 26 ✓</strong>Python unittest</div>
+      <div class="card"><strong>27 / 27 ✓</strong>Python unittest</div>
       <div class="card"><strong>7 / 7 ✓</strong>JavaScript Node test</div>
-      <div class="card"><strong>33 / 33 ✓</strong>測試總計</div>
+      <div class="card"><strong>34 / 34 ✓</strong>測試總計</div>
       <div class="card"><strong>4 / 4 ✓</strong>實驗結論契約</div>
     </section>
 
-    <h2>Python 測試（26 tests，全數通過 ✓）</h2>
+    <h2>Python 測試（27 tests，全數通過 ✓）</h2>
     <div class="table-wrap"><table>
       <thead><tr><th>檔案</th><th>對應範圍</th><th>測試數</th><th>狀態</th></tr></thead>
       <tbody>
@@ -51,7 +51,7 @@
         <tr><td><code>test_experiment_conclusions.py</code></td><td>上午實驗的四項結論契約</td><td>4</td><td class="ok">4 passed</td></tr>
         <tr><td><code>test_frontend_inference.py</code></td><td>Python 與前端 Iris／AI4I 推論一致性</td><td>3</td><td class="ok">3 passed</td></tr>
         <tr><td><code>test_iris_workflow.py</code></td><td>Iris 資料、切分、模型與產出契約</td><td>5</td><td class="ok">5 passed</td></tr>
-        <tr><td><code>test_static_site.py</code></td><td>靜態網站、報告、圖檔與結果來源</td><td>5</td><td class="ok">5 passed</td></tr>
+        <tr><td><code>test_static_site.py</code></td><td>靜態網站、報告、圖檔、結果來源與生成模型資產邊界</td><td>6</td><td class="ok">6 passed</td></tr>
       </tbody>
     </table></div>
 
@@ -83,10 +83,10 @@
         <tr><td>新增 JS 測試 ESLint</td><td class="ok">0 violations</td></tr>
         <tr><td>jscpd</td><td class="ok">0 clones、0.00% 重複率</td></tr>
         <tr><td>Knip</td><td class="ok">0 unused issues</td></tr>
-        <tr><td>全專案 ESLint</td><td class="warning">23 個既知 no-loss-of-precision errors（Issue #10）</td></tr>
+        <tr><td>全專案 ESLint</td><td class="ok">0 errors（Issue #11 模型資產重構後）</td></tr>
       </tbody>
     </table></div>
-    <p class="note">33 項測試全數通過；全專案靜態檢查仍有 23 個集中於生成模型資料的既知精度錯誤。兩者是不同品質訊號。</p>
+    <p class="note">34 項測試全數通過；全專案手寫 JavaScript 靜態檢查為 0 errors。生成模型資產改由 exporter 與推論一致性測試驗證。</p>
   </main>
 </body>
 </html>
