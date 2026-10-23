@@ -1,0 +1,101 @@
+{
+  "rows": 10000,
+  "columns": 14,
+  "column_types": {
+    "UDI": "int64",
+    "Product ID": "object",
+    "Type": "object",
+    "Air temperature [K]": "float64",
+    "Process temperature [K]": "float64",
+    "Rotational speed [rpm]": "int64",
+    "Torque [Nm]": "float64",
+    "Tool wear [min]": "int64",
+    "Machine failure": "int64",
+    "TWF": "int64",
+    "HDF": "int64",
+    "PWF": "int64",
+    "OSF": "int64",
+    "RNF": "int64"
+  },
+  "missing_total": 0,
+  "missing_by_column": {
+    "UDI": 0,
+    "Product ID": 0,
+    "Type": 0,
+    "Air temperature [K]": 0,
+    "Process temperature [K]": 0,
+    "Rotational speed [rpm]": 0,
+    "Torque [Nm]": 0,
+    "Tool wear [min]": 0,
+    "Machine failure": 0,
+    "TWF": 0,
+    "HDF": 0,
+    "PWF": 0,
+    "OSF": 0,
+    "RNF": 0
+  },
+  "duplicate_full_rows": 0,
+  "duplicate_measurements": 0,
+  "class_counts": {
+    "0": 9661,
+    "1": 339
+  },
+  "failure_rate": 0.0339,
+  "type_counts": {
+    "H": 1003,
+    "L": 6000,
+    "M": 2997
+  },
+  "mode_counts": {
+    "TWF": 46,
+    "HDF": 115,
+    "PWF": 95,
+    "OSF": 98,
+    "RNF": 19
+  },
+  "mode_combinations": {
+    "HDF": 106,
+    "HDF+OSF": 6,
+    "HDF+PWF": 3,
+    "OSF": 78,
+    "PWF": 80,
+    "PWF+OSF": 11,
+    "RNF": 18,
+    "TWF": 42,
+    "TWF+OSF": 2,
+    "TWF+PWF+OSF": 1,
+    "TWF+RNF": 1,
+    "none": 9652
+  },
+  "multiple_modes": 24,
+  "failure_without_mode": 9,
+  "mode_without_failure": 18,
+  "numeric_ranges": {
+    "Air temperature [K]": {
+      "min": 295.3,
+      "max": 304.5,
+      "mean": 300.00493
+    },
+    "Process temperature [K]": {
+      "min": 305.7,
+      "max": 313.8,
+      "mean": 310.00555999999995
+    },
+    "Rotational speed [rpm]": {
+      "min": 1168.0,
+      "max": 2886.0,
+      "mean": 1538.7761
+    },
+    "Torque [Nm]": {
+      "min": 3.8,
+      "max": 76.6,
+      "mean": 39.986909999999995
+    },
+    "Tool wear [min]": {
+      "min": 0.0,
+      "max": 253.0,
+      "mean": 107.951
+    }
+  },
+  "file_sha256": "dc6630cd9b1f0f853922fad78a1b6436570d3f1ec863f1dd5c4340ac56bc8a8e"
+}

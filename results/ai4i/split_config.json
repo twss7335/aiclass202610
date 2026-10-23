@@ -1,0 +1,30 @@
+{
+  "seed": 42,
+  "test_fraction": 0.2,
+  "stratified": true,
+  "train_samples": 8000,
+  "test_samples": 2000,
+  "train_failures": 271,
+  "test_failures": 68,
+  "cv_folds": 3,
+  "feature_whitelist": [
+    "Type",
+    "Air temperature [K]",
+    "Process temperature [K]",
+    "Rotational speed [rpm]",
+    "Torque [Nm]",
+    "Tool wear [min]"
+  ],
+  "excluded_identifiers": [
+    "UDI",
+    "Product ID"
+  ],
+  "excluded_target_labels": [
+    "Machine failure",
+    "TWF",
+    "HDF",
+    "PWF",
+    "OSF",
+    "RNF"
+  ]
+}

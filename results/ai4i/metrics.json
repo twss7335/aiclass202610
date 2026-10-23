@@ -1,0 +1,34 @@
+{
+  "pr_auc": 0.8736686754966534,
+  "roc_auc": 0.9778688649372793,
+  "precision": 0.43795620437956206,
+  "recall": 0.8823529411764706,
+  "f1": 0.5853658536585366,
+  "threshold": 0.11311298759413635,
+  "confusion_matrix": [
+    [
+      1855,
+      77
+    ],
+    [
+      8,
+      60
+    ]
+  ],
+  "true_negatives": 1855,
+  "false_positives": 77,
+  "false_negatives": 8,
+  "true_positives": 60,
+  "predicted_inspections": 137,
+  "positive_samples": 68,
+  "negative_samples": 1932,
+  "selected_model": "forest",
+  "selected_features": "engineered",
+  "selection_cv_pr_auc_mean": 0.8879418294431672,
+  "selection_cv_pr_auc_std": 0.00727989055271264,
+  "validation_target_recall": 0.9,
+  "threshold_selection": "maximize precision among OOF thresholds with recall >= 0.90",
+  "train_samples": 8000,
+  "test_samples": 2000,
+  "weighting": "fold-local class_weight"
+}

@@ -1,5 +1,7 @@
 # Iris 資料探索、PCA 與類神經網路分類
 
+> 本儲存庫也包含 [AI4I 2020 設備故障分析](paper/ai4i_study.md)。兩項研究的資料、測試與結果分開保存。
+
 本專案以 UCI Iris Dataset 完成資料品質檢查、探索性資料分析、標準化後的 3D PCA，以及以多層感知器（MLP）進行三分類。開發採用 TDD：先建立資料契約與模型管線測試，再實作、執行實驗，最後以產出物測試驗證結果。
 
 ## 實驗摘要
@@ -64,4 +66,21 @@ MPLCONFIGDIR=.matplotlib python run_analysis.py
 ## 資料來源與授權
 
 R. A. Fisher, *Iris* [Dataset], UCI Machine Learning Repository, 1936. DOI: https://doi.org/10.24432/C56C76 。資料採 CC BY 4.0 授權；詳見 [`data/README.md`](data/README.md)。
+
+## AI4I 2020：設備故障分析
+
+此研究以 UCI AI4I 2020 的 10,000 筆合成設備資料，預測當筆資料的 `Machine failure`。僅用六項運作特徵及由其推導的物理特徵；識別欄和五種失效模式標籤不進入模型。原始資料及來源見 [`data/ai4i/README.md`](data/ai4i/README.md)，詳細方法、圖表與限制見 [`paper/ai4i_study.md`](paper/ai4i_study.md)。
+
+在已安裝上述 `requirements.txt` 的環境中，可離線重建 AI4I 結果：
+
+```bash
+MPLCONFIGDIR=.matplotlib python run_ai4i.py
+MPLCONFIGDIR=.matplotlib python -m unittest discover -s tests -v
+```
+
+`run_ai4i.py` 會從專案內的原始 CSV 生成 `results/ai4i/` 的資料稽核、EDA／PCA 圖、模型比較、驗證分數、門檻分析、最終測試指標與錯誤案例。第二個指令包含完整流程的端到端整合測試。預設固定亂數種子 42、80/20 分層切分、訓練集內 3 折交叉驗證，按故障類別 PR-AUC（Average Precision）選模型。驗證資料上選擇達到至少 90% Recall 且 Precision 最高的門檻，測試集只做最後評估。唯一的不平衡處理是訓練折內的類別加權；MLP 使用等價的樣本權重，沒有重採樣。
+
+完整實驗在獨立測試集的結果：PR-AUC `0.8737`、故障 Recall `0.8824`、Precision `0.4380`。68 筆故障中偵測 60 筆，漏報 8 筆，誤報 77 筆。驗證集的 90% Recall 目標沒有保證測試集也達到相同數值。模型與門檻是依驗證資料選出；測試集指標並非調參目標。
+
+主要成果：[模型比較](results/ai4i/model_comparison.csv) · [完整指標](results/ai4i/metrics.json) · [PR 曲線](results/ai4i/figures/precision_recall.png) · [驗證門檻取捨](results/ai4i/figures/validation_threshold_tradeoff.png) · [PCA](results/ai4i/eda/pca.png)。
 
