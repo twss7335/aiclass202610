@@ -1,0 +1,12 @@
+{
+  "path": ["docs", "scripts", "tests"],
+  "pattern": "**/*.{js,mjs,cjs}",
+  "ignore": ["**/node_modules/**", "reports/static-analysis/**"],
+  "minLines": 5,
+  "minTokens": 50,
+  "threshold": 0,
+  "reporters": ["console", "json"],
+  "output": "reports/static-analysis/jscpd",
+  "gitignore": true,
+  "absolute": true
+}

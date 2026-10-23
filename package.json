@@ -1,0 +1,20 @@
+{
+  "name": "aiclass202610-static-analysis",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "check": "sh -c 'status=0; pnpm run check:eslint || status=1; pnpm run check:duplicates || status=1; pnpm run check:deadcode || status=1; exit $status'",
+    "check:eslint": "eslint 'docs/**/*.js' 'scripts/**/*.{js,mjs,cjs}' 'tests/**/*.{js,mjs,cjs}' --no-error-on-unmatched-pattern",
+    "check:duplicates": "jscpd docs scripts tests",
+    "check:deadcode": "knip"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.13.0",
+    "eslint-plugin-sonarjs": "4.2.2",
+    "globals": "17.13.0",
+    "jscpd": "5.4.2",
+    "knip": "6.42.1"
+  }
+}
