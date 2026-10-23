@@ -84,3 +84,16 @@ MPLCONFIGDIR=.matplotlib python -m unittest discover -s tests -v
 
 主要成果：[模型比較](results/ai4i/model_comparison.csv) · [完整指標](results/ai4i/metrics.json) · [PR 曲線](results/ai4i/figures/precision_recall.png) · [驗證門檻取捨](results/ai4i/figures/validation_threshold_tradeoff.png) · [PCA](results/ai4i/eda/pca.png)。
 
+## 純前端互動推論
+
+開啟 [`docs/index.html`](docs/index.html) 即可在瀏覽器試用 Iris 與 AI4I 表單。兩者共用一個結果區，推論只執行 [`docs/app.js`](docs/app.js)，不會向後端傳送輸入。Iris 使用原本的 4→16→8→3 MLP；AI4I 使用選出的 120 棵樹隨機森林及相同的工程特徵。AI4I 顯示的風險門檻為驗證資料選出的 `0.11311298759413635`，不是設備安全標準。
+
+前端參數由訓練集重新擬合後匯出。安裝 Python 相依套件後，可重建並驗證：
+
+```bash
+PYTHONPATH=. python scripts/export_frontend_models.py
+python -m unittest tests.test_frontend_inference -v
+```
+
+第二步需有 Node.js，用於將前端預測機率與 Python 模型逐筆比較；整體測試仍可用 `python -m unittest discover -s tests -v`。匯出步驟僅在開發時需要，使用網頁時不需 Python、Node.js 或 API。
+

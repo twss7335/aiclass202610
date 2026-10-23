@@ -1,0 +1,92 @@
+"""Rebuild the project models and embed their learned parameters in docs/app.js.
+
+This is an offline build step only; the published page runs without Python or a backend.
+"""
+
+import json
+import re
+from pathlib import Path
+
+from src.ai4i.workflow import (
+    TARGET, _features, _fit_model, _pipeline, balanced_weights, load_data, make_split,
+)
+from src.iris_workflow import CLASS_ORDER, FEATURE_COLUMNS, build_model, load_iris_csv, split_data
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def export_iris():
+    frame = load_iris_csv(ROOT / "data" / "iris.csv")
+    X_train, _, y_train, _ = split_data(frame)
+    classifier = build_model()
+    classifier.fit(X_train, y_train.map({name: index for index, name in enumerate(CLASS_ORDER)}))
+    scaler = classifier.named_steps["scaler"]
+    mlp = classifier.named_steps["classifier"]
+    return {
+        "features": FEATURE_COLUMNS,
+        "classes": CLASS_ORDER,
+        "mean": scaler.mean_.tolist(),
+        "scale": scaler.scale_.tolist(),
+        "weights": [matrix.tolist() for matrix in mlp.coefs_],
+        "biases": [vector.tolist() for vector in mlp.intercepts_],
+    }
+
+
+def export_ai4i():
+    frame = load_data(ROOT / "data" / "ai4i" / "ai4i2020.csv")
+    train_positions, _ = make_split(frame)
+    train = frame.iloc[train_positions]
+    labels = train[TARGET].to_numpy()
+    weights = balanced_weights(labels)
+    pipeline = _fit_model(
+        _pipeline("forest", "engineered", 42, weights), "forest",
+        _features(train, "engineered"), labels, weights,
+    )
+    preprocessor = pipeline.named_steps["preprocess"]
+    scaler = preprocessor.named_transformers_["numeric"]
+    categories = preprocessor.named_transformers_["type"].categories_[0]
+    forest = pipeline.named_steps["model"]
+    positive_index = list(forest.classes_).index(1)
+    trees = []
+    for estimator in forest.estimators_:
+        tree = estimator.tree_
+        trees.append({
+            "l": tree.children_left.tolist(),
+            "r": tree.children_right.tolist(),
+            "f": tree.feature.tolist(),
+            "t": tree.threshold.tolist(),
+            "p": tree.value[:, 0, positive_index].tolist(),
+        })
+    metrics = json.loads((ROOT / "results" / "ai4i" / "metrics.json").read_text())
+    assert metrics["selected_model"] == "forest"
+    assert metrics["selected_features"] == "engineered"
+    return {
+        "mean": scaler.mean_.tolist(),
+        "scale": scaler.scale_.tolist(),
+        "types": categories.tolist(),
+        "threshold": metrics["threshold"],
+        "trees": trees,
+    }
+
+
+def main():
+    data = {"iris": export_iris(), "ai4i": export_ai4i()}
+    target = ROOT / "docs" / "app.js"
+    source = target.read_text(encoding="utf-8")
+    encoded = json.dumps(data, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
+    pattern = r"(?<=/\* MODEL_DATA_START \*/).*?(?=/\* MODEL_DATA_END \*/)"
+    updated, count = re.subn(pattern, " " + encoded + " ", source, count=1, flags=re.S)
+    if count != 1:
+        raise RuntimeError("Model-data markers are missing from docs/app.js")
+    target.write_text(updated, encoding="utf-8")
+    print(f"Embedded {len(data['ai4i']['trees'])} AI4I trees and {sum(len(t['l']) for t in data['ai4i']['trees'])} nodes")
+    print(f"Iris scaler means: {data['iris']['mean']}")
+    print(f"Iris scaler scales: {data['iris']['scale']}")
+    print(f"AI4I scaler means: {data['ai4i']['mean']}")
+    print(f"AI4I scaler scales: {data['ai4i']['scale']}")
+    print(f"AI4I decision threshold: {data['ai4i']['threshold']}")
+
+
+if __name__ == "__main__":
+    main()

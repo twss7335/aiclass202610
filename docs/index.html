@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iris 與 AI4I｜前端互動推論</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, "Noto Sans TC", sans-serif; color: #17233b; background: #f3f6fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 1080px; margin: auto; padding: 36px 20px 56px; }
+    h1 { margin: 0 0 8px; font-size: clamp(1.8rem, 4vw, 2.6rem); }
+    .intro { color: #516078; line-height: 1.7; margin-bottom: 26px; }
+    .forms { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    form, #result { background: white; border: 1px solid #dbe3ef; border-radius: 16px; padding: 24px; box-shadow: 0 8px 28px #1739630d; }
+    h2 { margin: 0 0 8px; font-size: 1.3rem; }
+    .hint { margin: 0 0 18px; color: #59687e; font-size: .92rem; }
+    .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    label { display: block; font-weight: 600; font-size: .9rem; }
+    input, select { display: block; width: 100%; margin-top: 6px; padding: 10px 11px; border: 1px solid #acb9cc; border-radius: 8px; background: white; color: inherit; font: inherit; }
+    input:focus, select:focus, button:focus { outline: 3px solid #8dbcf5; outline-offset: 2px; }
+    button { margin-top: 20px; border: 0; border-radius: 9px; background: #1765ba; color: white; padding: 11px 18px; font: inherit; font-weight: 700; cursor: pointer; }
+    button:hover { background: #0e4f98; }
+    #result { margin-top: 20px; min-height: 120px; }
+    #result p { line-height: 1.65; }
+    .probabilities { width: 100%; border-collapse: collapse; }
+    .probabilities th, .probabilities td { padding: 8px; border-bottom: 1px solid #e5eaf2; text-align: left; }
+    .bar { display: inline-block; height: 9px; min-width: 1px; border-radius: 5px; background: #3986d2; }
+    .warning { color: #9b3b17; font-weight: 700; }
+    .footnote { color: #59687e; font-size: .85rem; }
+    @media (max-width: 560px) { .fields { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>互動推論實驗室</h1>
+    <p class="intro">所有計算都在瀏覽器內完成；資料不會送到伺服器。數值由專案 Python 模型匯出，僅供教學與實驗，不作為實際設備維護決策。</p>
+    <div class="forms">
+      <form id="iris-form">
+        <h2>Iris 鳶尾花分類</h2>
+        <p class="hint">輸入四項量測值，單位為 cm。</p>
+        <div class="fields">
+          <label>花萼長度（cm）<input name="sepal_length_cm" type="number" min="0.01" step="any" value="5.1" required></label>
+          <label>花萼寬度（cm）<input name="sepal_width_cm" type="number" min="0.01" step="any" value="3.5" required></label>
+          <label>花瓣長度（cm）<input name="petal_length_cm" type="number" min="0.01" step="any" value="1.4" required></label>
+          <label>花瓣寬度（cm）<input name="petal_width_cm" type="number" min="0.01" step="any" value="0.2" required></label>
+        </div>
+        <button type="submit">預測 Iris 類別</button>
+      </form>
+      <form id="ai4i-form">
+        <h2>AI4I 設備故障風險</h2>
+        <p class="hint">輸入設備狀態；產品等級為 L、M 或 H。</p>
+        <div class="fields">
+          <label>空氣溫度（K）<input name="Air temperature [K]" type="number" min="0.01" step="any" value="298.1" required></label>
+          <label>製程溫度（K）<input name="Process temperature [K]" type="number" min="0.01" step="any" value="308.6" required></label>
+          <label>轉速（rpm）<input name="Rotational speed [rpm]" type="number" min="1" step="1" value="1551" required></label>
+          <label>扭矩（Nm）<input name="Torque [Nm]" type="number" min="0" step="any" value="42.8" required></label>
+          <label>刀具磨耗（min）<input name="Tool wear [min]" type="number" min="0" step="1" value="0" required></label>
+          <label>產品等級<select name="Type" required><option value="L">L</option><option value="M" selected>M</option><option value="H">H</option></select></label>
+        </div>
+        <button type="submit">估計故障機率</button>
+      </form>
+    </div>
+    <section id="result" aria-live="polite" aria-atomic="true">
+      <h2>推論結果</h2>
+      <p>送出任一表單後，結果會顯示在此。</p>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
