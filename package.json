@@ -4,6 +4,7 @@
   "private": true,
   "packageManager": "pnpm@11.25.0",
   "scripts": {
+    "test:frontend": "node --test tests/*.test.js",
     "check": "sh -c 'status=0; pnpm run check:eslint || status=1; pnpm run check:duplicates || status=1; pnpm run check:deadcode || status=1; exit $status'",
     "check:eslint": "eslint 'docs/**/*.js' 'scripts/**/*.{js,mjs,cjs}' 'tests/**/*.{js,mjs,cjs}' --no-error-on-unmatched-pattern",
     "check:duplicates": "jscpd docs scripts tests",

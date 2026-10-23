@@ -1,0 +1,40 @@
+{
+  "numeric_features": [
+    "Air temperature [K]",
+    "Process temperature [K]",
+    "Rotational speed [rpm]",
+    "Torque [Nm]",
+    "Tool wear [min]",
+    "temperature_difference_K",
+    "power_W",
+    "wear_torque_minNm"
+  ],
+  "mean": [
+    300.00545,
+    310.0060625,
+    1539.356875,
+    40.0033625,
+    107.685,
+    10.0006125,
+    6282.61794732732,
+    4302.68415
+  ],
+  "std": [
+    1.996719258558899,
+    1.4793392092734339,
+    180.9716311061885,
+    10.018919350089297,
+    63.608026419627265,
+    0.9997916657202889,
+    1072.3514814402902,
+    2820.0009976813444
+  ],
+  "type_categories": [
+    "H",
+    "L",
+    "M"
+  ],
+  "selected_model": "forest",
+  "selected_features": "engineered",
+  "seed": 42
+}

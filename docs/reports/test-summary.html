@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>測試總清單</title>
+  <style>
+    :root { color-scheme: dark; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #d7dde8; background: #090b0f; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 1080px; margin: auto; padding: 34px 20px 60px; }
+    nav { margin-bottom: 28px; }
+    a { color: #73b7ff; }
+    h1 { color: #bd93f9; font-size: clamp(1.65rem, 4vw, 2.4rem); }
+    h2 { margin-top: 2.2rem; color: #f2b86b; font-size: 1.08rem; }
+    p { line-height: 1.7; }
+    .lead { color: #aab5c5; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin: 24px 0 34px; }
+    .card { padding: 18px; border: 1px solid #394252; border-radius: 10px; background: #11151c; }
+    .card strong { display: block; margin-bottom: 6px; color: #50fa7b; font-size: 1.55rem; }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; background: #0d1016; }
+    th, td { padding: 10px 12px; border: 1px solid #4b5360; text-align: left; vertical-align: top; }
+    th { color: #bd93f9; font-weight: 600; }
+    td:first-child code { color: #68d391; }
+    code { color: #f1c27d; }
+    .ok { color: #50fa7b; }
+    .warning { color: #ffb86c; }
+    .note { margin-top: 20px; padding: 14px 16px; border-left: 4px solid #ffb86c; background: #17130e; color: #e7d5bc; }
+    @media (max-width: 640px) { th, td { min-width: 130px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <nav><a href="../index.html">← 返回首頁</a> · <a href="smell-report.html">靜態檢查分析</a></nav>
+    <h1>測試總清單</h1>
+    <p class="lead">2026-10-23 實際執行結果。測試通過狀態與靜態檢查狀態分開呈現。</p>
+
+    <section class="cards" aria-label="測試摘要">
+      <div class="card"><strong>26 / 26 ✓</strong>Python unittest</div>
+      <div class="card"><strong>7 / 7 ✓</strong>JavaScript Node test</div>
+      <div class="card"><strong>33 / 33 ✓</strong>測試總計</div>
+      <div class="card"><strong>4 / 4 ✓</strong>實驗結論契約</div>
+    </section>
+
+    <h2>Python 測試（26 tests，全數通過 ✓）</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>檔案</th><th>對應範圍</th><th>測試數</th><th>狀態</th></tr></thead>
+      <tbody>
+        <tr><td><code>test_ai4i_workflow.py</code></td><td>AI4I 資料契約、切分、前處理、評估與整合流程</td><td>9</td><td class="ok">9 passed</td></tr>
+        <tr><td><code>test_experiment_conclusions.py</code></td><td>上午實驗的四項結論契約</td><td>4</td><td class="ok">4 passed</td></tr>
+        <tr><td><code>test_frontend_inference.py</code></td><td>Python 與前端 Iris／AI4I 推論一致性</td><td>3</td><td class="ok">3 passed</td></tr>
+        <tr><td><code>test_iris_workflow.py</code></td><td>Iris 資料、切分、模型與產出契約</td><td>5</td><td class="ok">5 passed</td></tr>
+        <tr><td><code>test_static_site.py</code></td><td>靜態網站、報告、圖檔與結果來源</td><td>5</td><td class="ok">5 passed</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>JavaScript 前端測試（7 tests，全數通過 ✓）</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>檔案</th><th>內容</th><th>測試數</th><th>狀態</th></tr></thead>
+      <tbody>
+        <tr><td><code>docs_smoke.test.js</code></td><td>固定 results 顯示、Iris 表單、fetch 失敗訊息</td><td>3</td><td class="ok">3 passed</td></tr>
+        <tr><td><code>frontend_golden.test.js</code></td><td>Python golden 主測試與 3 筆 Iris 子案例</td><td>4</td><td class="ok">4 passed</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>實驗結論的故障注入證明</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>結論</th><th>故意注入的錯誤</th><th>確認捕捉到的紅燈</th></tr></thead>
+      <tbody>
+        <tr><td>特徵不得洩漏標籤</td><td>加入 TWF</td><td><code>Target leakage in feature list</code></td></tr>
+        <tr><td>Recall 必須大於 0</td><td>Recall 改為 0</td><td><code>Failure recall must be greater than zero</code></td></tr>
+        <tr><td>不得全部預測同一類</td><td>所有預測設為 0</td><td><code>Predictions collapsed to a single class</code></td></tr>
+        <tr><td>網頁數字吻合來源</td><td>Accuracy 改為 0.5</td><td><code>Published iris numbers differ</code></td></tr>
+        <tr><td>保存前處理可重現</td><td>第一個 mean 改為 0</td><td>6/6 機率不一致，最大差異 0.11237381</td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>其他品質檢查</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>工具</th><th>結果</th></tr></thead>
+      <tbody>
+        <tr><td>新增 JS 測試 ESLint</td><td class="ok">0 violations</td></tr>
+        <tr><td>jscpd</td><td class="ok">0 clones、0.00% 重複率</td></tr>
+        <tr><td>Knip</td><td class="ok">0 unused issues</td></tr>
+        <tr><td>全專案 ESLint</td><td class="warning">23 個既知 no-loss-of-precision errors（Issue #10）</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">33 項測試全數通過；全專案靜態檢查仍有 23 個集中於生成模型資料的既知精度錯誤。兩者是不同品質訊號。</p>
+  </main>
+</body>
+</html>

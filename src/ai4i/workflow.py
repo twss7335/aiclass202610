@@ -431,6 +431,18 @@ def run_experiment(project_root: Path | str, output_dir: Path | str,
     X_train, X_test = _features(train, variant), _features(test, variant)
     weights = balanced_weights(train_y)
     model = _fit_model(_pipeline(model_name, variant, SEED, weights), model_name, X_train, train_y, weights)
+    preprocessor = model.named_steps["preprocess"]
+    scaler = preprocessor.named_transformers_["numeric"]
+    encoder = preprocessor.named_transformers_["type"]
+    _write_json(out / "preprocessing.json", {
+        "numeric_features": NUMERIC_COLUMNS + (DERIVED_COLUMNS if variant == "engineered" else []),
+        "mean": [float(value) for value in scaler.mean_],
+        "std": [float(value) for value in scaler.scale_],
+        "type_categories": [str(value) for value in encoder.categories_[0]],
+        "selected_model": model_name,
+        "selected_features": variant,
+        "seed": SEED,
+    })
     scores = model.predict_proba(X_test)[:, 1]
     metrics = evaluate_scores(test_y, scores, threshold)
     metrics.update({"selected_model": model_name, "selected_features": variant,
