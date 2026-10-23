@@ -12,11 +12,18 @@
     h1 { margin: 0 0 8px; font-size: clamp(1.8rem, 4vw, 2.6rem); }
     .intro { color: #516078; line-height: 1.7; margin-bottom: 26px; }
     .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 28px; }
-    .summary article { background: white; border: 1px solid #dbe3ef; border-radius: 16px; padding: 24px; box-shadow: 0 8px 28px #1739630d; }
+    .summary article { position: relative; isolation: isolate; overflow: hidden; min-height: 370px; background: white; border: 1px solid #dbe3ef; border-radius: 16px; padding: 24px 24px 132px; box-shadow: 0 8px 28px #1739630d; }
+    .summary article > :not(.summary-art) { position: relative; z-index: 1; }
+    .summary-art { position: absolute; inset: auto 0 0; height: 185px; z-index: 0; pointer-events: none; overflow: hidden; }
+    .summary-art::before, .summary-art::after { content: ""; position: absolute; inset: -12px; background-image: var(--card-image); background-position: right bottom; background-size: cover; }
+    .summary-art::before { filter: blur(14px); -webkit-mask-image: linear-gradient(to bottom, transparent, #000 36%, transparent 78%); mask-image: linear-gradient(to bottom, transparent, #000 36%, transparent 78%); }
+    .summary-art::after { filter: blur(1px); -webkit-mask-image: linear-gradient(to bottom, transparent 24%, #000 92%); mask-image: linear-gradient(to bottom, transparent 24%, #000 92%); }
+    .summary-art--iris { --card-image: url("assets/iris-card-v1.png"); }
+    .summary-art--ai4i { --card-image: url("assets/ai4i-card-v1.png"); }
     .summary dl { display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; margin: 16px 0; }
     .summary dt { color: #516078; } .summary dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
     .source { color: #59687e; font-size: .85rem; }
-    .report-links { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 30px; }
+    .summary-links { margin: 14px 0 0; }
     a { color: #1765ba; }
     .forms { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
     form, #result { background: white; border: 1px solid #dbe3ef; border-radius: 16px; padding: 24px; box-shadow: 0 8px 28px #1739630d; }
@@ -46,12 +53,14 @@
       <article>
         <h2>Iris 實驗結果</h2>
         <div id="iris-metrics" aria-live="polite">載入既有指標中…</div>
-        <a href="reports/iris_study.html">閱讀 Iris 小論文</a> · <a href="figures/figures/pca_3d.png">查看 3D PCA 圖</a>
+        <p class="summary-links"><a href="reports/iris_study.html">閱讀 Iris 小論文</a> · <a href="figures/figures/pca_3d.png">查看 3D PCA 圖</a></p>
+        <div class="summary-art summary-art--iris" aria-hidden="true"></div>
       </article>
       <article>
         <h2>AI4I 實驗結果</h2>
         <div id="ai4i-metrics" aria-live="polite">載入既有指標中…</div>
-        <a href="reports/ai4i_study.html">閱讀 AI4I 小論文</a> · <a href="figures/ai4i/figures/precision_recall.png">查看 PR 曲線</a>
+        <p class="summary-links"><a href="reports/ai4i_study.html">閱讀 AI4I 小論文</a> · <a href="figures/ai4i/figures/precision_recall.png">查看 PR 曲線</a></p>
+        <div class="summary-art summary-art--ai4i" aria-hidden="true"></div>
       </article>
     </section>
     <h2>試用前端推論</h2>

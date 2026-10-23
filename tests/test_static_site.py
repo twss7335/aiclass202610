@@ -55,6 +55,15 @@ class StaticSiteTests(unittest.TestCase):
             if not target.startswith(("https://", "http://", "#")):
                 self.assertTrue((DOCS / target).is_file(), target)
 
+    def test_result_cards_have_local_decorative_images_with_blur(self):
+        html = (DOCS / "index.html").read_text(encoding="utf-8")
+        for name in ("iris", "ai4i"):
+            self.assertIn(f'class="summary-art summary-art--{name}" aria-hidden="true"', html)
+            self.assertIn(f'assets/{name}-card-v1.png', html)
+            self.assertTrue((DOCS / "assets" / f"{name}-card-v1.png").is_file())
+        self.assertIn("filter: blur(14px)", html)
+        self.assertIn("mask-image: linear-gradient", html)
+
 
 if __name__ == "__main__":
     unittest.main()
